@@ -11,7 +11,7 @@ const Token = require('../models/Access_token');
 router.post('/signup', [
 		body('usr_id', 'User name must be atlist length >3').trim().isLength({ min: 3 }),
 		body('pass', 'Password must be atlist length >3').trim().isLength({ min: 3 }),
-		body('token', 'Token must be atlist length =9').trim().isLength({ min: 9, max: 9 })
+		body('token', 'Token must be length =9').trim().isLength({ min: 9, max: 9 })
 	],(req, res) => {
 
 	// if inputes are not valid then run this
@@ -68,9 +68,10 @@ router.post('/login', [
     // let findOneUserQuery = {usr_id: req.body.usr_id};
     User.findOne(req.body).then(function(result) {
 	    if (result) {
-	    	return res.status(200).json({ usr_id: result.usr_id });    		
+	    	return res.status(200).json({ usr_id: result.usr_id });
+	    	// return res.status(200).json(req.body); 		
 	    } else {
-	    	return res.status(400).json({ erro: "user does not exists." });
+	    	return res.status(401).json({ errors: "user does not exists." });
 	    }
   	});
 });
