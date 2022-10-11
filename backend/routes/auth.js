@@ -5,7 +5,7 @@ const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const User = require('../models/Users');
 const Token = require('../models/Access_token');
-
+var bcrypt = require('bcryptjs');
 
 // create user
 router.post('/signup', [
@@ -33,9 +33,19 @@ router.post('/signup', [
 	    	Token.deleteOne(tokneFindQuery).then((tokenResult) => {
 	    		if (tokenResult.deletedCount) {
 					  // if the user does not exists then create one
-						const user = User(req.body);
-						user.save()
-						return res.status(200).json(req.body); 	    			
+					  
+					  // hashing password
+					  bcrypt.genSalt(10, function(err, salt) {
+					      bcrypt.hash(req.body.pass, salt, function(err, hash) {
+					          let insOneUserQuery = { usr_id: req.body.usr_id, pass: hash }
+					          const user = User(insOneUserQuery);
+										user.save()
+										// return res.status(200).json(req.body); 	    			
+										return res.status(200).json(insOneUserQuery); 	    			
+					      });
+					  });
+
+
 	    		} else {
 	    			return res.status(400).json({ erro: "Not a valid token." });
 	    		}
@@ -65,14 +75,22 @@ router.post('/login', [
     }
 
     // check if the user exists
-    // let findOneUserQuery = {usr_id: req.body.usr_id};
-    User.findOne(req.body).then(function(result) {
+    let findOneUserQuery = {usr_id: req.body.usr_id};
+    User.findOne(findOneUserQuery).then(function(result) {
 	    if (result) {
-	    	return res.status(200).json({ usr_id: result.usr_id });
-	    	// return res.status(200).json(req.body); 		
+	    	// if found one user then check hash password
+	    	bcrypt.compare(req.body.pass, result.pass, function (err, isMatch) {
+	    		if (isMatch) {
+	    			return res.status(200).json({ usr_id: result.usr_id });
+	    			// return res.status(200).json(req.body); 		
+	    		} else{
+	    			return res.status(401).json({ errors: "user does not exists." });
+	    		}
+	    	})
 	    } else {
 	    	return res.status(401).json({ errors: "user does not exists." });
 	    }
+	    
   	});
 });
 /*
