@@ -1,8 +1,10 @@
-const { port } = require('./configurationfile')
+const dotenv = require('dotenv')
+dotenv.config({ path: './config.env'})
+
 const connectToMongo = require('./connection.js');
 const express = require('express')
 connectToMongo();
-
+const port = process.env.PORT
 const app = express()
 
 
