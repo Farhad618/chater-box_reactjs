@@ -1,6 +1,6 @@
 // Home.js
 
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { Navigate } from "react-router-dom";
 
 import LoginContext from '../contexts/user/LoginContext';
@@ -14,12 +14,14 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Chat from './Chat';
 
 const Home = () => {
+	const bottomRef = useRef(null);
 		const context = useContext(UserContext);
 		const { user } = context;
 		const { login } = useContext(LoginContext);
 		
 		const [chat, setChat] = useState('');
-		const [allChats, setAllChats] = useState([]);	
+		const [allChats, setAllChats] = useState([]);
+		const [chatCount, setChatCount] = useState(0);
 	
 	const onChangeText = (e) => {
 		setChat(e.target.value);
@@ -46,22 +48,25 @@ const Home = () => {
 						.then((data) => {
 							// console.log(data);
 							setAllChats(data);
+							setChatCount(data.length)
 						})
 				}
 			  })		  
 			  .catch((error) => {
 				console.error('Error:', error);
 			  });
-
-			  
-
-		}, 1000);
-	
+		}, 900);
+		
 		return () => {
 		  clearInterval(interval);
 		};
+		
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	  }, []);
+
+	  useEffect(()=>{
+		bottomRef.current?.scrollIntoView({behavior: 'smooth'});
+	  }, [chatCount]);
 	  
 	const doChat = (e)=>{
 		e.preventDefault();
@@ -103,7 +108,8 @@ const Home = () => {
 					{allChats.map(oneChat=>{
 						// console.log(oneChat)
 						return <Chat key={oneChat._id} chat={oneChat} />
-					})}		
+					})}	
+					<div ref={bottomRef} />
 				</Container>				
 			</div>			
 			<Navbar fixed='bottom' expand="lg" variant="mute" bg="light" className='text-nav'>
