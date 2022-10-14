@@ -88,7 +88,7 @@ router.post('/viewchat', [
       })
       .then(function () {
         let chatFindQuery = { koken: req.body.koken }
-        const chatFindProjection = { _id: 0, usr_id: 1, chat: 1 };
+        const chatFindProjection = { _id: 1, usr_id: 1, chat: 1 };
 
         Chats.find(chatFindQuery, chatFindProjection).then(function(result) {
             return res.status(200).json(result);
