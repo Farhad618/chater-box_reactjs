@@ -1,4 +1,5 @@
 // Home.js
+import logo from '../logo.svg';
 
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { Navigate } from "react-router-dom";
@@ -97,7 +98,16 @@ const Home = () => {
 		{/* <Container> */}
 			<Navbar fixed='top' expand="lg" variant="light" bg="light" className='nav-head'>
 				<Container>
-					<Navbar.Brand href="#">chater-box</Navbar.Brand>
+					<Navbar.Brand href="#">
+						<img
+							alt=""
+							src={logo}
+							width="40"
+							height="40"
+							className="d-inline-block align-top"
+						/>
+						{' '}chater-box
+					</Navbar.Brand>
 					<Navbar.Text>
 						Logout from: <a href="login">{user.usr_id}</a>
 					</Navbar.Text>
