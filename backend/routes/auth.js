@@ -11,7 +11,8 @@ var bcrypt = require('bcryptjs');
 router.post('/signup', [
 		body('usr_id', 'User name must be atlist length >3').trim().isLength({ min: 3 }),
 		body('pass', 'Password must be atlist length >3').trim().isLength({ min: 3 }),
-		body('token', 'Token must be length =9').trim().isLength({ min: 9, max: 9 })
+		body('token', 'Token must be length =9').trim().isLength({ min: 9, max: 9 }),
+		body('koken', 'Koken must be atlist length >3s').trim().isLength({ min: 3 })
 	],(req, res) => {
 
 	// if inputes are not valid then run this
@@ -65,7 +66,8 @@ router.post('/signup', [
 // login user
 router.post('/login', [
 		body('usr_id', 'User name must not be empty').isLength({ min: 1 }),
-		body('pass', 'Password must not be empty').isLength({ min: 1 })
+		body('pass', 'Password must not be empty').isLength({ min: 1 }),
+		body('koken', 'Koken must be atlist length >3l').trim().isLength({ min: 3 })
 	],(req, res) => {
 
 	// if inputes are not valid then run this

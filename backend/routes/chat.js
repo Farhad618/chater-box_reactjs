@@ -29,7 +29,8 @@ router.post('/insertchat', [
 
     axios.post(baseurl+'/api/auth/login', {
         usr_id: req.body.usr_id,
-        pass: req.body.pass
+        pass: req.body.pass,
+        koken: req.body.koken
       }, {
           headers: {
               'Content-Type': 'application/json',
@@ -79,7 +80,8 @@ router.post('/viewchat', [
 
     axios.post(baseurl+'/api/auth/login', {
         usr_id: req.body.usr_id,
-        pass: req.body.pass
+        pass: req.body.pass,
+        koken: req.body.koken
       }, {
           headers: {
               'Content-Type': 'application/json',

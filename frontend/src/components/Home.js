@@ -42,11 +42,11 @@ const Home = () => {
 			  body: JSON.stringify(data),
 			})
 			  .then((response) => {
-				if (login){
+				if (response.ok){
 					/*console.log(response.ok)*/
 					response.json()
 						.then((data) => {
-							// console.log(data);
+							// console.log("home.js "+data);
 							setAllChats(data);
 							setChatCount(data.length)
 						})

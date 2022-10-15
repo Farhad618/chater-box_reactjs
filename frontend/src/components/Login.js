@@ -21,7 +21,7 @@ const Login = () => {
         e.preventDefault();
 		var url = "api/auth/login";
 
-		const data = { usr_id: user.usr_id, pass: user.pass };
+		const data = { usr_id: user.usr_id, pass: user.pass, koken: user.koken };
 
 		fetch(url, {
 		  method: 'POST', // or 'PUT'
@@ -33,7 +33,7 @@ const Login = () => {
 		  .then((response) => {
             setLogin(response.ok)
 
-            if (login){
+            if (!response.ok){
                 /*console.log(response.ok)*/
                 response.json()
                     .then((data) => {
@@ -57,17 +57,17 @@ const Login = () => {
 			<Form onSubmit={ doLogin }>
 			  <Form.Group className="mb-3" controlId="formBasicEmail">
 			    <Form.Label>User name</Form.Label>
-			    <Form.Control type="text" placeholder="Enter username" name='usr_id' value={user.usr_id} onChange={onChangeText} />
+			    <Form.Control type="text" placeholder="Enter username" name='usr_id' value={user.usr_id} onChange={onChangeText} required={true} />
 			  </Form.Group>
 
 			  <Form.Group className="mb-3" controlId="formBasicPassword">
 			    <Form.Label>Password</Form.Label>
-			    <Form.Control type="password" placeholder="Password" name='pass' value={user.pass} onChange={onChangeText} />
+			    <Form.Control type="password" placeholder="Password" name='pass' value={user.pass} onChange={onChangeText} required={true} />
 			  </Form.Group>
 
 			  <Form.Group className="mb-3" controlId="formBasicKoken">
 			    <Form.Label>Koken</Form.Label>
-			    <Form.Control type="password" placeholder="Koken" name='koken' value={user.koken} onChange={onChangeText} />
+			    <Form.Control type="password" placeholder="Koken" name='koken' value={user.koken} onChange={onChangeText} required={true} />
 			  </Form.Group>
 
 			  <Button variant="primary" type="submit">
