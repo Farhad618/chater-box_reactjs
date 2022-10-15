@@ -12,7 +12,7 @@ router.post('/signup', [
 		body('usr_id', 'User name must be atlist length >3').trim().isLength({ min: 3 }),
 		body('pass', 'Password must be atlist length >3').trim().isLength({ min: 3 }),
 		body('token', 'Token must be length =9').trim().isLength({ min: 9, max: 9 }),
-		body('koken', 'Koken must be atlist length >3s').trim().isLength({ min: 3 })
+		body('koken', 'Koken must be atlist length >3').trim().isLength({ min: 3 })
 	],(req, res) => {
 
 	// if inputes are not valid then run this
@@ -67,7 +67,7 @@ router.post('/signup', [
 router.post('/login', [
 		body('usr_id', 'User name must not be empty').isLength({ min: 1 }),
 		body('pass', 'Password must not be empty').isLength({ min: 1 }),
-		body('koken', 'Koken must be atlist length >3l').trim().isLength({ min: 3 })
+		body('koken', 'Koken must be atlist length >3').trim().isLength({ min: 3 })
 	],(req, res) => {
 
 	// if inputes are not valid then run this
@@ -86,11 +86,11 @@ router.post('/login', [
 	    			return res.status(200).json({ usr_id: result.usr_id });
 	    			// return res.status(200).json(req.body); 		
 	    		} else{
-	    			return res.status(401).json({ errors: "user does not exists." });
+	    			return res.status(401).json({ erro: "user does not exists." });
 	    		}
 	    	})
 	    } else {
-	    	return res.status(401).json({ errors: "user does not exists." });
+	    	return res.status(401).json({ erro: "user does not exists." });
 	    }
 	    
   	});
