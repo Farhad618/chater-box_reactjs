@@ -10,7 +10,7 @@ html, body {
 
 .msg-area {
     /* height: 50%; */
-    margin-top: 70px;
+    padding-top: 70px;
     padding-bottom: 70px;
     width: 100%;
 }

@@ -111,7 +111,7 @@ const Home = () => {
 					})}	
 					<div ref={bottomRef} />
 				</Container>				
-			</div>			
+			</div>
 			<Navbar fixed='bottom' expand="lg" variant="mute" bg="light" className='text-nav'>
 				<Container>
 					<Form onSubmit={doChat}>
@@ -122,6 +122,7 @@ const Home = () => {
 								aria-describedby="basic-addon2"
 								value={chat}
 								onChange={onChangeText}
+								required={true}
 							/>
 							<Button variant="outline-secondary" id="button-addon2" type="submit">
 								Send
